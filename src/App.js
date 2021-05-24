@@ -20,8 +20,8 @@ function App() {
           
           <div className='links-container'>
             <Link to='/'>Home</Link>
-            <Link to='/login'>Login</Link>
-            <Link to='/sign-up'>Create Account</Link>
+            {!localStorage.getItem('token') ? <Link to='/login'>Login</Link> : <Link to='/'>Sign Out</Link>}
+            {!localStorage.getItem('token') && <Link to='/sign-up'>Sign-up</Link>}
             {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
           </div>
         </div>
