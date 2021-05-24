@@ -1,5 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+// import Home from './components/Home';
+// import Login from './components/Login';
+// import SignUp from './components/SignUp';
+import Profile from './components/Profile';
+
 
 
 function App() {
@@ -9,7 +15,7 @@ function App() {
         <Link to='/'>Home</Link>
         <Link to='/login'>Login</Link>
         <Link to='/sign-up'>Sign-Up</Link>
-        <Link to='/profile'>Profile</Link>
+       {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
 
         <Switch>
           <Route path='/login'>
@@ -20,8 +26,10 @@ function App() {
             {/* <SignUP /> */}
           </Route>
 
-          <Route path='/profile'>
-            {/* <Profile /> */}
+          <PrivateRoute path='/profile' component={Profile} />
+
+          <Route path='/'>
+            {/* <Home /> */}
           </Route>
         </Switch>
 
