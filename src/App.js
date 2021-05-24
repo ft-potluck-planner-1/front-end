@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-// import Home from './components/Home';
+import Home from './components/Home';
 // import Login from './components/Login';
 // import SignUp from './components/SignUp';
 import Profile from './components/Profile';
@@ -12,10 +12,19 @@ function App() {
   return (
     <Router> 
       <div className="App">
-        <Link to='/'>Home</Link>
-        <Link to='/login'>Login</Link>
-        <Link to='/sign-up'>Sign-Up</Link>
-       {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
+        <div className='nav-container'>
+          <div className='company-container'>
+            <img scr='#' alt='#' />
+            <h2>Potluck Planner</h2>
+          </div>
+          
+          <div className='links-container'>
+            <Link to='/'>Home</Link>
+            {!localStorage.getItem('token') ? <Link to='/login'>Login</Link> : <Link to='/'>Sign Out</Link>}
+            {!localStorage.getItem('token') && <Link to='/sign-up'>Sign-up</Link>}
+            {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
+          </div>
+        </div>
 
         <Switch>
           <Route path='/login'>
@@ -23,13 +32,13 @@ function App() {
           </Route>
           
           <Route path='/sign-up'>
-            {/* <SignUP /> */}
+            {/* <SignUp /> */}
           </Route>
 
           <PrivateRoute path='/profile' component={Profile} />
 
           <Route path='/'>
-            {/* <Home /> */}
+            <Home />
           </Route>
         </Switch>
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const SignUp = () => {
+const SignUp = () => { //need to put props as a parameter if you use props later (line 12)
     const {
         values,
         submit, 
