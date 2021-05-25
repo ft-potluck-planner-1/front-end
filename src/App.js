@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 // import PrivateRoute from './components/PrivateRoute';
 import Home from './components/Home';
+import SignUp from './components/SignUp';
 import Login from './components/Login/Login';
-// import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 
 
@@ -32,12 +32,12 @@ function App() {
           </Route>
           
           <Route path='/sign-up'>
-            {/* <SignUp /> */}
+            <SignUp />
           </Route>
 
           <Route path='/profile' component={Profile} />
 
-          <Route path='/'>
+          <Route exact path='/'>
             <Home />
           </Route>
         </Switch>
