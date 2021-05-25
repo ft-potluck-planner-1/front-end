@@ -26,6 +26,7 @@ const initialFormErrors = {
 const initialUsers = []
 const initialDisabled = true
 
+
 const SignUp = () => {
     
     
@@ -78,7 +79,6 @@ const formSubmit = () => {
     }
     postNewUser(newUser)
   }
-
 
     const onSubmit = evt => {
         evt.preventDefault()
