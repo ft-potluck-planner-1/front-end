@@ -5,7 +5,7 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Login from './components/Login/Login';
 import Profile from './components/Profile';
-import PotluckCard from './components/OrganizerPotluckCard';
+import EditOrganized from './components/EditOrganized';
 
 
 
@@ -41,8 +41,8 @@ function App() {
           {/* make this a PrivateRoute */}
           <Route path='/profile' component={Profile} /> 
 
-          <Route path='/potluck'>
-            <PotluckCard />
+          <Route path='/profile/edit-organized:event_id'>
+            <EditOrganized />
           </Route>
 
           <Route exact path='/'>

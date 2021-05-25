@@ -1,17 +1,34 @@
 import React from 'react';
-
+import { useHistory } from 'react-router-dom';
 
 const OrganizerPotluckCard = (props) => {
     const { potluck } = props
+
+
+    const history = useHistory();
+
+    const handleClickEdit = () => {
+        history.push(`/profile/edit-organized/${potluck.event_id}`);
+    };
+
     return(
         <div>
-            <h2>Potluck</h2>
-            {potluck.role === 'loginName' && <button>Edit</button>}
-            <p>{potluck.date}</p>
-            <p>{potluck.time}</p>
-            <p>{potluck.location}</p>
-            {potluck.food.map(item => <p key={Math.random()}>{item}</p>)}
-
+            <h2>Organizer of Potluck</h2>
+            <button onClick={handleClickEdit}>Edit</button>
+            <p>{potluck.event_date}</p>
+            <p>{potluck._time}</p>
+            <p>{potluck._location}</p>
+            <p>{potluck.organizer}</p>
+            {
+                potluck.items.map(item => {
+                    return(
+                        <div>
+                            <p>{item.item_name}</p>
+                            <p>{item.responsible_for}</p>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }
