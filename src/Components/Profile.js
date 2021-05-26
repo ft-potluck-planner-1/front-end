@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import OrganizerPotluckCard from './OrganizerPotluckCard';
-import GuestPotluckCard from './GuestPotluckCard';
+// import OrganizerPotluckCard from './OrganizerPotluckCard';
+// import GuestPotluckCard from './GuestPotluckCard';
+import { connect } from 'react-redux';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 
 const Profile = (props) => {
-    const { loginRes } = props // user_id comes from Login component's axios.post, pass in through redux or context -> register post endpoint doesn't come with token - have SignUp redirect to LogIn if needed
+    // const { loginRes } = props // user_id comes from Login component's axios.post, pass in through redux or context -> register post endpoint doesn't come with token - have SignUp redirect to LogIn if needed
     const [ organizerPotlucks, setOrganizerPotlucks ] = useState([]);
     const [ guestPotlucks, setGuestPotlucks] = useState([]);
 
     const history = useHistory();
+    console.log('props', props);
+    console.log('userId:', props.user_id);
 
     useEffect(() => {
-        axios.get(`https://ft-potluck-planner-5.herokuapp.com/api/events/organizer/${loginRes.user_id}}`) // user_id comes from state
+        axiosWithAuth()
+            .get(`https://ft-potluck-planner-5.herokuapp.com/api/events/organizer/${props.user_id}}`) 
             .then(res => {
                 console.log('res: ', res);
                 // setOrganizerPotlucks(res.data);
@@ -24,9 +28,10 @@ const Profile = (props) => {
     }, [])
     
     useEffect(() => {
-        axios.get(`https://ft-potluck-planner-5.herokuapp.com/api/events/guest/${loginRes.user_id}}`) // user_id comes from state
+        axiosWithAuth()
+            .get(`https://ft-potluck-planner-5.herokuapp.com/api/events/guest/${props.user_id}}`)
             .then(res => {
-                console.log('res: ', res);
+                console.log('res2: ', res);
                 // setGuestPotlucks(res.data);
             })
             .catch(err => {
@@ -40,20 +45,22 @@ const Profile = (props) => {
 
     return(
         <div className='potluck-list-container'>
-            <h2 className='profile-welcome'>{loginRes.message}</h2> 
+            {/* <h2 className='profile-welcome'>{props.message}</h2>  */}
             <button onClick={handleClick}>Start New Potluck</button>
             
             {/* need to adjust according to axios return */}
             {organizerPotlucks.map(event => {
                 return(
-                    <OrganizerPotluckCard key={Math.random()} potluck={event}/>
+                    console.log('organizer')
+                    // <OrganizerPotluckCard key={Math.random()} potluck={event}/>
                     )
                 })}
 
             {/* need to adjust according to axios return */}
             {guestPotlucks.map(event => {
                 return(
-                    <GuestPotluckCard key={Math.random()} potluck={event}/>
+                    console.log('guest')
+                    // <GuestPotluckCard key={Math.random()} potluck={event}/>
                 )
             })}
 
@@ -62,4 +69,11 @@ const Profile = (props) => {
     )
 }
 
-export default Profile;
+const mapToStateProps = (state) => {
+    return({
+        message: state.message,
+        user_id: state.user_id
+    });
+}
+
+export default connect(mapToStateProps)(Profile);

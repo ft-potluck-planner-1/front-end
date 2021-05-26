@@ -35,24 +35,25 @@ function App() {
              <Login /> 
           </Route>
           
-          <Route path='/sign-up'>
+          {/* <Route path='/sign-up'>
             <SignUp />
           </Route>
 
           {/* make this a PrivateRoute */}
           <Route path='/profile' component={Profile} /> 
 
-          <Route path='/organize'>
+          {/* <Route path='/organize'>
             <Organize />
           </Route>
 
           <Route path='/guest'>
             <Guest />
           </Route>
-
+          */}
+          
           <Route exact path='/'>
             <Home />
-          </Route>
+          </Route>  
         </Switch>
 
       </div>
