@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import schema from './formSchema';
+
 import { connect } from 'react-redux';
 import {getLoginResponse} from '../../actions/index';
 
@@ -17,7 +18,6 @@ const Login = (props) => {
     const [username, setUsername] = useState([]);
     const [formValues, setFormValues] = useState(initialFormValues);
     const [submitDisabled, setSubmitDisabled] = useState(true);
-    // const [loginResponse, setLoginResponse] = useState({});
 
 
     const submitHandler = (e) => {
@@ -43,11 +43,12 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        // move axios to actions
         axios
         .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
             .then((res) => {
                 localStorage.setItem('token', res.data.token);
-                getLoginResponse(res.data);
+                props.getLoginResponse(res.data);
                 push("/profile");
             })
             .catch((err) => {

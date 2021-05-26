@@ -6,7 +6,9 @@ import SignUp from './components/SignUp';
 import Login from './components/Login/Login';
 import Profile from './components/Profile';
 import Organize from './components/Organize';
-import Guest from './components/Guest';
+// import CreatePotluck component -> for creating a new potluck
+//import Guest component -> for guests to rsvp and pick a food to bring
+
 
 
 
@@ -26,30 +28,36 @@ function App() {
             {!localStorage.getItem('token') && <Link to='/sign-up'>Sign-up</Link>}
             {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
             {/* remove profile link below once push from login/signup are done */}
-            <Link to='profile'>Profile</Link>
+            <Link to='/profile'>Profile</Link>
           </div>
         </div>
 
         <Switch>
+          {/* change to correct component name/path */}
+          {/* <Route path='/profile/edit-organized/:id'>
+            <CreatePotluck /> 
+          </Route>  */}
+
           <Route path='/login'>
              <Login /> 
           </Route>
           
-          {/* <Route path='/sign-up'>
-            <SignUp />
+          <Route path='/organize'>
+            <Organize />
+          </Route>
+
+          {/* Change to correct component name/path */}
+          {/* <Route path='/guest'>
+            <Guest />
+          </Route> */}
+
+          <Route path='/sign-up'>
+              <SignUp />
           </Route>
 
           {/* make this a PrivateRoute */}
           <Route path='/profile' component={Profile} /> 
 
-          {/* <Route path='/organize'>
-            <Organize />
-          </Route>
-
-          <Route path='/guest'>
-            <Guest />
-          </Route>
-          */}
           
           <Route exact path='/'>
             <Home />

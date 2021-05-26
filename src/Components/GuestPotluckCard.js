@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { editPotluck } from '../actions/index';
 
 const GuestPotluckCard = (props) => {
     const { potluck } = props;
@@ -8,22 +10,19 @@ const GuestPotluckCard = (props) => {
 
     const handleClick = () => {
         history.push('/guest');
+        editPotluck(potluck)
     }
 
     return(
         <div className='guest-potluck-card'>
-            <p>{potluck.event_date}</p>
-            <p>{potluck.event_time}</p>
-            <p>{potluck.event_location}</p>
-            <p>{potluck.organizer}</p>
-            <p>{potluck.organizer}</p>
+            <h2>Guest</h2>
+            <p>Date: {potluck.event_date}</p>
+            <p>Time: {potluck.event_time}</p>
+            <p>Location: {potluck.event_location}</p>
             {
                 potluck.items.map(item => {
                     return(
-                        <div>
-                            <p>{item.item_name}</p>
-                            <p>{item.responsible_for}</p>
-                        </div>
+                        <p>Food/Assignment: {item.item_name}, {item.responsible_for}</p>
                     )
                 })
             }
@@ -32,4 +31,4 @@ const GuestPotluckCard = (props) => {
     )
 }
 
-export default GuestPotluckCard;
+export default connect(null, {editPotluck})(GuestPotluckCard);
