@@ -5,7 +5,8 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Login from './components/Login/Login';
 import Profile from './components/Profile';
-import EditOrganized from './components/EditOrganized';
+import Organize from './components/Organize';
+import Guest from './components/Guest';
 
 
 
@@ -41,8 +42,12 @@ function App() {
           {/* make this a PrivateRoute */}
           <Route path='/profile' component={Profile} /> 
 
-          <Route path='/profile/edit-organized:event_id'>
-            <EditOrganized />
+          <Route path='/organize'>
+            <Organize />
+          </Route>
+
+          <Route path='/guest'>
+            <Guest />
           </Route>
 
           <Route exact path='/'>

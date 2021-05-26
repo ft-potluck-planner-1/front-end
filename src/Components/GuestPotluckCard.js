@@ -1,11 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
 const GuestPotluckCard = (props) => {
     const { potluck } = props;
 
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push('/guest');
+    }
+
     return(
-        <div>
-            <h2>Guest at Potluck</h2>
+        <div className='guest-potluck-card'>
             <p>{potluck.event_date}</p>
             <p>{potluck.event_time}</p>
             <p>{potluck.event_location}</p>
@@ -21,6 +27,7 @@ const GuestPotluckCard = (props) => {
                     )
                 })
             }
+            <button onClick={handleClick}>View Potluck</button>
         </div>
     )
 }
