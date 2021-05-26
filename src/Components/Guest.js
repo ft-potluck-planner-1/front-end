@@ -3,17 +3,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const initialState = {
-    response: '',
+const initialResponse = {
+    rsvp: '',
     guest_id: '',
 }
 
+const initialAssignments = {
+    item_name: '',
+    responsible_for: '',
+}
+
 const Guest = (props) => {
-    const { event_id, user_id } = props // this needs to be passed in from somewhere, user_id is from Login
+    const { event_id, user_id, potluck } = props // this needs to be passed in from somewhere, user_id is from Login, potluck is same as state in guestPotluckCard
 
-    const [ response, setResponse ] = useState(initialState);
+    const [ response, setResponse ] = useState(initialResponse);
+    const [ assignments, setAssignments ] = useState(initialAssignments);
 
-    useEffect(() => {
+
+    //pass in potluck where event_id matches e.target -> this potluck will have items in data
+
+    useEffect(() => { // this is for guest response
         axios.get(`https://ft-potluck-planner-5.herokuapp.com/api/events/${event_id}/guests`, response)
             .then(res => {
                 console.log(res);
@@ -35,7 +44,12 @@ const Guest = (props) => {
 
     return(
         <div>
-            <h2>Bring Food</h2>
+            <div className='guest-potluck-card'>
+            <p>{potluck.event_date}</p>
+            <p>{potluck.event_time}</p>
+            <p>{potluck.event_location}</p>
+            <p>{potluck.organizer}</p>
+            <p>{potluck.organizer}</p>
             <form onSubmit={handleSubmit}>
                 <p>Will you be attending the potluck?</p>
                 <label> Yes
@@ -43,7 +57,7 @@ const Guest = (props) => {
                         type='radio' 
                         name='response' 
                         value='yes'
-                        checked={response === 'yes'}
+                        checked={response.rsvp === 'yes'}
                         onChange={onChange}
                         />
                 </label>
@@ -52,11 +66,24 @@ const Guest = (props) => {
                         type='radio' 
                         name='response' 
                         value='no'
-                        checked={response === 'no'}
+                        checked={response.rsvp === 'no'}
                         onChange={onChange}
                         />
                 </label>
+                {
+                    response.rsvp === 'yes' &&
+                        potluck.items.map(item => {
+                            return(
+                                <div>
+                                    <p>{item.item_name}</p>
+                                    <p>{item.responsible_for}</p>
+                                </div>
+                            )
+                        })
+                }
             </form>
+        </div>
+
         </div>
     )
 }

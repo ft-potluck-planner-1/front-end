@@ -27,7 +27,7 @@ const GuestPotluckCard = (props) => {
                     )
                 })
             }
-            <button onClick={handleClick}>View Potluck</button>
+            <button onClick={handleClick}>RSVP/Assignments</button>
         </div>
     )
 }

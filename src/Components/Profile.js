@@ -40,7 +40,7 @@ const Profile = (props) => {
 
     return(
         <div className='potluck-list-container'>
-            <h2 className='profile-welcome'>{loginRes.message}</h2> {/* Welcome back username */}
+            <h2 className='profile-welcome'>{loginRes.message}</h2> 
             <button onClick={handleClick}>Start New Potluck</button>
             
             {/* need to adjust according to axios return */}

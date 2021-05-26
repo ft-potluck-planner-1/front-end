@@ -14,7 +14,6 @@ const OrganizerPotluckCard = (props) => {
     return(
         <div className='organizer-potluck-card'>
             <h2 className='organizer-name'>Organizer: {potluck.organizer}</h2>
-            <button onClick={handleClickEdit}>Edit</button>
             <p>{potluck.event_date}</p>
             <p>{potluck._time}</p>
             <p>{potluck._location}</p>
@@ -28,6 +27,7 @@ const OrganizerPotluckCard = (props) => {
                     )
                 })
             }
+            <button onClick={handleClickEdit}>Edit</button>
         </div>
     )
 }
