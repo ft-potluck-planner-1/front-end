@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import schema from './formSchema';
+import { connect } from 'react-redux';
+import {getLoginResponse} from '../../actions/index';
 
 const initialFormValues = {
     username: "",
@@ -15,6 +17,7 @@ const Login = (props) => {
     const [username, setUsername] = useState([]);
     const [formValues, setFormValues] = useState(initialFormValues);
     const [submitDisabled, setSubmitDisabled] = useState(true);
+    // const [loginResponse, setLoginResponse] = useState({});
 
 
     const submitHandler = (e) => {
@@ -36,22 +39,20 @@ const Login = (props) => {
             ...formValues,
             [e.target.name]: e.target.value,
         });
-        // console.log(formValues);
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(formValues);
-        push("/profile");
-        // axios
-        //     .post(/*api**/ formValues)
-        //     .then((res) => {
-        //         console.log("res data", res.data);
-        //         console.log("user id", res.data.user.user_id);
-        //     })
-        //     .catch((err) => {
-        //         console.log("ERROR:", err.response);
-        //     });
+        axios
+        .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
+            .then((res) => {
+                localStorage.setItem('token', res.data.token);
+                getLoginResponse(res.data);
+                push("/profile");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
         submitHandler();
     };
@@ -96,5 +97,5 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default connect(null, {getLoginResponse})(Login);
 
