@@ -1,7 +1,9 @@
-// this is for RSVP.... need to add functionality to choose food to bring
+// this is for RSVP and picking a food to bring
+//not functional yet
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 const initialResponse = {
     rsvp: '',
@@ -14,18 +16,18 @@ const initialAssignments = {
 }
 
 const Guest = (props) => {
-    const { event_id, user_id, potluck } = props // this needs to be passed in from somewhere, user_id is from Login, potluck is same as state in guestPotluckCard
+    const { user_id, potluck } = props // this needs to be passed in from somewhere, user_id is from Login, potluck is same as state in guestPotluckCard
 
     const [ response, setResponse ] = useState(initialResponse);
-    const [ assignments, setAssignments ] = useState(initialAssignments);
+    const [ assignments, setAssignments ] = useState(initialAssignments); // still need to make assignments functionality
 
 
     //pass in potluck where event_id matches e.target -> this potluck will have items in data
 
     useEffect(() => { // this is for guest response
-        axios.get(`https://ft-potluck-planner-5.herokuapp.com/api/events/${event_id}/guests`, response)
+        axios.get(`https://ft-potluck-planner-5.herokuapp.com/api/events/${props.guestPotluck.event_id}/guests`, response)
             .then(res => {
-                console.log(res);
+                console.log('guest', res);
                 //setResponse
             })
             .catch(err => {
@@ -35,21 +37,22 @@ const Guest = (props) => {
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        setResponse({...response, [name]: value, guest_id: user_id});
+        // set response to update rsvp with name/value
+        // use guest id from reducer to 
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //push back to profile
     }
 
     return(
         <div>
             <div className='guest-potluck-card'>
-            <p>{potluck.event_date}</p>
-            <p>{potluck.event_time}</p>
-            <p>{potluck.event_location}</p>
-            <p>{potluck.organizer}</p>
-            <p>{potluck.organizer}</p>
+            <p>{props.guestPotluck.event_date}</p>
+            <p>{props.guestPotluck.event_time}</p>
+            <p>{props.guestPotluck.event_location}</p>
+            <p>{props.guestPotluck.organizer}</p>
             <form onSubmit={handleSubmit}>
                 <p>Will you be attending the potluck?</p>
                 <label> Yes
@@ -70,17 +73,6 @@ const Guest = (props) => {
                         onChange={onChange}
                         />
                 </label>
-                {
-                    response.rsvp === 'yes' &&
-                        potluck.items.map(item => {
-                            return(
-                                <div>
-                                    <p>{item.item_name}</p>
-                                    <p>{item.responsible_for}</p>
-                                </div>
-                            )
-                        })
-                }
             </form>
         </div>
 
@@ -88,4 +80,10 @@ const Guest = (props) => {
     )
 }
 
-export default Guest;
+const mapToStateProps = (state) => {
+    return({
+        guestPotluck: state.guestPotluck
+    })
+}
+
+export default connect(mapToStateProps)(Guest);
