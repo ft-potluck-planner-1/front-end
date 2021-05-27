@@ -10,7 +10,7 @@ const Home = () => {
     }
 
     const signup = () => {
-        push('/sing-up')
+        push('/sign-up')
     }
 
     return(
