@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
 
 const Home = () => {
 
@@ -11,12 +12,13 @@ const Home = () => {
     const signup = () => {
         push('/sign-up')
     }
-    
+
     return(
         <div className='home-container'>
             <div className='hero-img'>
                 <h1>Potluck Planner</h1>
-                <button>Start Planning!</button>
+                <button onClick={login}>Login</button>
+                <button onClick={signup}>Sign Up</button>
             </div>
             <div className='about-container'>
                 <h2>Plan, Organize, Coordinate All In One Place</h2>
