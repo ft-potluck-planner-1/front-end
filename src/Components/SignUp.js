@@ -10,7 +10,6 @@ import axios from 'axios';
 const initialFormValues = {
     // text inputs
     name: '',
-    email: '',
     password: '',
     // checkbox
     terms: false,
@@ -18,7 +17,6 @@ const initialFormValues = {
 
 const initialFormErrors = {
     name: '',
-    email: '',
     password: '',
     terms: false,
 }
@@ -38,7 +36,7 @@ const [disabled, setDisabled] = useState(initialDisabled)
 // Helpers 
 
 const postNewUser = newUser => {
-    axios.post(/* API endpoint goes here*/ newUser)
+    axios.post('https://ft-potluck-planner-5.herokuapp.com/api/auth/register', newUser)
       .then(res => {
         setUsers([res.data, ...users])
         console.log('receiving a successful response back', res.data)
@@ -73,7 +71,6 @@ const inputChange = (name, value) => {
 const formSubmit = () => {
     const newUser = {
       name: formValues.name.trim(),
-      email: formValues.email.trim(),
       password: formValues.password.trim(),
       terms: formValues.terms
     }
@@ -115,16 +112,6 @@ const formSubmit = () => {
                     />
                 </label>
 
-                <label>Email
-                    <input
-                        value={formValues.email}
-                        onChange={onChange}
-                        name='email'
-                        type='text'
-                        placeholder='Enter Your Email Address'
-                    />
-                </label>
-
                 <label>Create Password
                     <input
                         value={formValues.password}
@@ -152,7 +139,6 @@ const formSubmit = () => {
 
                 <div className='errors'>
                     <div>{formErrors.name}</div>
-                    <div>{formErrors.email}</div>
                     <div>{formErrors.password}</div>
                 </div>
             </div>

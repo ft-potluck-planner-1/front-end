@@ -1,18 +1,29 @@
-
+import { LOGIN_RESPONSE, GUEST_POTLUCK } from '../actions/index';
 
 
 const initialState = {
-    username:'',
-    password: '',
-    email: '',
+    message: '',
+    token: '',
+    user_id: '',
+    organizerPotluck: {},
+    guestPotluck: {},
 }
 
-const Reducer = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case LOGIN_RESPONSE:
+            return {
+                ...state, 
+                user_id: action.payload.user_id
+            };
+        case GUEST_POTLUCK:
+            return {
+                ...state,
+                guestPotluck: action.payload
+            }
         default:
             return state;
-    }
-
+    };
 }
 
-export default Reducer;
+export default reducer;

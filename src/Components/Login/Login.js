@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import schema from './formSchema';
 
+import { connect } from 'react-redux';
+import {getLoginResponse} from '../../actions/index';
+
 const initialFormValues = {
     username: "",
     password: "",
@@ -36,11 +39,11 @@ const Login = (props) => {
             ...formValues,
             [e.target.name]: e.target.value,
         });
-        // console.log(formValues);
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
+
         console.log(formValues);
         // push("/profile");
         axios
@@ -48,6 +51,8 @@ const Login = (props) => {
             .then((res) => {
                 // console.log("res data", res.data);
                 // console.log("user id", res.data.user.user_id);
+          localStorage.setItem('token', res.data.token);
+                props.getLoginResponse(res.data);
                 setFormValues(res.data)
                 push('/profile')
             })
@@ -98,5 +103,5 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default connect(null, {getLoginResponse})(Login);
 
