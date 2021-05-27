@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import schema from './formSchema';
 
 const initialFormValues = {
@@ -42,16 +42,18 @@ const Login = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         console.log(formValues);
-        push("/profile");
-        // axios
-        //     .post(/*api**/ formValues)
-        //     .then((res) => {
-        //         console.log("res data", res.data);
-        //         console.log("user id", res.data.user.user_id);
-        //     })
-        //     .catch((err) => {
-        //         console.log("ERROR:", err.response);
-        //     });
+        // push("/profile");
+        axios
+            .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
+            .then((res) => {
+                // console.log("res data", res.data);
+                // console.log("user id", res.data.user.user_id);
+                setFormValues(res.data)
+                push('/profile')
+            })
+            .catch((err) => {
+                console.log("ERROR:", err.response);
+            });
 
         submitHandler();
     };
