@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { editPotluck } from '../actions/index';
+import { connect } from 'react-redux';
+
+
 
 const initialFormValues = {
     name: '',
@@ -13,7 +17,8 @@ const initialFormValues = {
 const initialPotlucks = []
 
 
-const PotluckEdit = () => {
+const PotluckEdit = (props) => {
+    const { potluck } = props; // potluck will now be an object for an individual potluck. ex: potluck.event_id should work for event id
     // States
     const [potlucks, setPotlucks] = useState()
     const [formValues, setFormValues] = useState(initialFormValues) 
@@ -99,4 +104,10 @@ const PotluckEdit = () => {
     )
 }
 
-export default PotluckEdit
+const mapToStateProps = (state) => {
+    return({
+        potluck: state.organizerPotluck
+    });
+}
+
+export default connect(mapToStateProps, {editPotluck})(PotluckEdit);
