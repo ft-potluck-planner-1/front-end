@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const initialResponse = {
     rsvp: '',
-    guest_id: '',
+    guest_id: '', // will be coming from reducer instead of local state
 }
 
 const initialAssignments = {
