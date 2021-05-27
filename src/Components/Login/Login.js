@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import schema from './formSchema';
 
 import { connect } from 'react-redux';
@@ -43,15 +43,10 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        console.log(formValues);
-        // push("/profile");
-        axios
+        axiosWithAuth()
             .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
             .then((res) => {
-                // console.log("res data", res.data);
-                // console.log("user id", res.data.user.user_id);
-          localStorage.setItem('token', res.data.token);
+                localStorage.setItem('token', res.data.token);
                 props.getLoginResponse(res.data);
                 setFormValues(res.data)
                 push('/profile')

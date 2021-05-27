@@ -20,6 +20,11 @@ const GuestPotluckCard = (props) => {
             <p>Time: {potluck.event_time}</p>
             <p>Location: {potluck.event_location}</p>
             {
+                potluck.guests.map(guest => {
+                    return <p>Guest: {guest.username}, {guest.response}</p>
+                })
+            }
+            {
                 potluck.items.map(item => {
                     return(
                         <p>Food/Assignment: {item.item_name}, {item.responsible_for}</p>
