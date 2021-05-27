@@ -52,7 +52,7 @@ function App() {
           </Route> */}
 
           <Route path='/sign-up'>
-              <SignUp />
+            <SignUp />
           </Route>
 
           {/* make this a PrivateRoute */}
