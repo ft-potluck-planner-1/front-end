@@ -43,16 +43,21 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // move axios to actions
+
+        console.log(formValues);
+        // push("/profile");
         axios
-        .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
+            .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
             .then((res) => {
-                localStorage.setItem('token', res.data.token);
+                // console.log("res data", res.data);
+                // console.log("user id", res.data.user.user_id);
+          localStorage.setItem('token', res.data.token);
                 props.getLoginResponse(res.data);
-                push("/profile");
+                setFormValues(res.data)
+                push('/profile')
             })
             .catch((err) => {
-                console.log(err);
+                console.log("ERROR:", err.response);
             });
 
         submitHandler();
