@@ -1,6 +1,17 @@
 import React from 'react';
 
 const Home = () => {
+
+    const { push } = useHistory()
+
+    const login = () => {
+        push('/login')
+    }
+
+    const signup = () => {
+        push('/sign-up')
+    }
+    
     return(
         <div className='home-container'>
             <div className='hero-img'>
