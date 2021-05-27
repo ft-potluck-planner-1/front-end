@@ -26,9 +26,8 @@ function App() {
             <Link to='/'>Home</Link>
             {!localStorage.getItem('token') ? <Link to='/login'>Login</Link> : <Link to='/'>Sign Out</Link>}
             {!localStorage.getItem('token') && <Link to='/sign-up'>Sign-up</Link>}
-            {localStorage.getItem('token') && <Link to='/profile'>Profile</Link>}
-            {/* remove profile link below once push from login/signup are done */}
             <Link to='/profile'>Profile</Link>
+            {/* remove profile link below once push from login/signup are done */}
           </div>
         </div>
 
