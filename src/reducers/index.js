@@ -1,4 +1,4 @@
-import { LOGIN_RESPONSE, GUEST_POTLUCK, ORGANIZER_POTLUCK } from '../actions/index';
+import { LOGIN_RESPONSE, GUEST_POTLUCK, ORGANIZER_POTLUCK, GUEST_RESPONSE } from '../actions/index';
 
 const initialState = {
     message: '',
@@ -6,6 +6,7 @@ const initialState = {
     user_id: '',
     organizerPotluck: {},
     guestPotluck: {},
+    guestResponse: '',
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,11 +20,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 guestPotluck: action.payload
-            }
+            };
         case ORGANIZER_POTLUCK:
             return {
                 ...state,
                 organizerPotluck: action.payload
+            };
+        case GUEST_RESPONSE:
+            return {
+                ...state,
+                guestResponse: action.payload
             }
         default:
             return state;

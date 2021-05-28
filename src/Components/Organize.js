@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const initFormVal = {
@@ -9,7 +8,6 @@ const initFormVal = {
     location: '',
     food: ''
 }
-
 
 const Organize = (props) => {
 const { values, submit, change, disabled } = props;

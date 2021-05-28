@@ -38,7 +38,7 @@ const [disabled, setDisabled] = useState(initialDisabled)
 const postNewUser = newUser => {
     axios.post('https://ft-potluck-planner-5.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        setUsers([res.data, ...users])
+        setUsers([...users, res.data])
         console.log('receiving a successful response back', res.data)
       })
       .catch(err => {
