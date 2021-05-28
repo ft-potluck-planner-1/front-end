@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { editPotluck } from '../actions/index';
 
 const GuestPotluckCard = (props) => {
-    const { potluck } = props;
+    const { potluck, editPotluck } = props;
 
     const history = useHistory();
 
     const handleClick = () => {
-        history.push('/guest');
         editPotluck(potluck)
+        history.push('/guest');
     }
 
     return(
@@ -19,6 +19,11 @@ const GuestPotluckCard = (props) => {
             <p>Date: {potluck.event_date}</p>
             <p>Time: {potluck.event_time}</p>
             <p>Location: {potluck.event_location}</p>
+            {
+                potluck.guests.map(guest => {
+                    return <p>Guest: {guest.username}, {guest.response}</p>
+                })
+            }
             {
                 potluck.items.map(item => {
                     return(
