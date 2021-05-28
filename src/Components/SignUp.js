@@ -4,7 +4,60 @@ import React, { useState, useEffect } from 'react';
 import signUpSchema from './SignUpSchema';
 import * as yup from 'yup';
 import axios from 'axios';
+import styled from 'styled-components';
 
+const StyledForm = styled.form`
+    background-color:burlywood;
+    border-radius: 15px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center;
+`
+
+const StyledTitle = styled.h2`
+    color:#1E90FF;
+    display:flex;
+    align-items:center;
+`
+
+const StyledText = styled.h4`
+    color: #1E90FF;
+    display:flex;
+    align-items:center;
+    padding-left: 50px;
+`
+
+const StyledLabel1 = styled.label`
+    margin-bottom: 100px;
+    color:#1E90FF;
+`
+
+const StyledLabel2 = styled.label`
+    color:#1E90FF;
+`
+
+const StyledLabel3 = styled.label`
+    color:indianred;
+`
+const StyledInput = styled.input`
+    padding:10px;
+    margin:10px 0;
+    border-radius: 10px;
+`
+const StyledButton = styled.button`
+    background-color: #1E90FF;
+    border: none;
+    border-radius:10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+`
 
 // Initial States
 const initialFormValues = {
@@ -93,56 +146,57 @@ const formSubmit = () => {
       }, [formValues])
 
     return (
-        <form id='sign-up form' onSubmit={onSubmit}>
+        <StyledForm id='sign-up form' onSubmit={onSubmit}>
 
-            <h2>Sign up for our Potluck Planner today!</h2>
+            <StyledTitle>Sign up for our Potluck Planner today!</StyledTitle>
     
             <div className='sign-up inputs'>
-                <h4>User Information</h4>
+                <StyledText>User Information</StyledText>
 
                     {/* Text Inputs for new User Sign Up form */}
 
-                <label>Name&nbsp;
-                    <input
+                <StyledLabel1>Name:&nbsp;
+                    <StyledInput
                         value={formValues.name}
                         onChange={onChange}
                         name='name'
                         type='text'
                         placeholder='Enter Your Name'
                     />
-                </label>
-
-                <label>Create Password
-                    <input
+                </StyledLabel1>
+                <br></br>
+                <StyledLabel2>Password:&nbsp;
+                    <StyledInput
                         value={formValues.password}
                         onChange={onChange}
                         name='password'
                         type='password'
+                        placeholder='Create a Password'
                     />
-                </label>
+                </StyledLabel2>
             </div>
 
             <div className='sign-up checkbox'>
-                <label>Terms of Service
+                <StyledLabel3>Terms of Service
                     <input
                         type='checkbox'
                         name='terms'
                         checked={formValues.terms}
                         onChange={onChange}
                     />
-                </label>
+                </StyledLabel3>
             </div>
 
             <div className='form submit'>
 
-                <button id='sign-up-button' disabled={disabled}>Sign Up</button>
+                <StyledButton id='sign-up-button' disabled={disabled}>Sign Up</StyledButton>
 
                 <div className='errors'>
                     <div>{formErrors.name}</div>
                     <div>{formErrors.password}</div>
                 </div>
             </div>
-        </form>
+        </StyledForm>
     )
 }
 
