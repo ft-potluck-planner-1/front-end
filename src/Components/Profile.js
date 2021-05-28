@@ -29,7 +29,7 @@ const Profile = (props) => {
             .catch(err => {
                 console.log(err);
             })
-    })
+    } ,[props.user_id])
 
 
     const handleClick = () => {
