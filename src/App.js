@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
-import Home from './components/Home';
-import SignUp from './components/SignUp';
-import Login from './components/Login/Login';
-import Profile from './components/Profile';
-import Organize from './components/Organize';
-import Guest from './components/Guest';
+import PrivateRoute from './Components/PrivateRoute';
+import Home from './Components/Home';
+import SignUp from './Components/SignUp';
+import Login from './Components/Login/Login';
+import Profile from './Components/Profile';
+import Organize from './Components/Organize';
+import Guest from './Components/Guest';
 
 function App() {
 
