@@ -10,9 +10,8 @@ const initFormVal = {
 }
 
 const Organize = (props) => {
-const { values, submit, change, disabled } = props;
+const { disabled } = props;
 const [formVal, setFormVal] = useState(initFormVal)
-const [potLuck, setPotluck] = useState([])
 
 const submitPot = (data) => {
     axios
@@ -24,14 +23,6 @@ const submitPot = (data) => {
     .catch(error => {
         console.log(error)
     })
-    // const newPotluck = {
-    //     name: formVal.name.trim(),
-    //     date: formVal.date.trim(),
-    //     time: formVal.time.trim(),
-    //     location: formVal.location.trim(),
-    //     food: formVal.food.trim()
-    // }
-    // setPotluck([...potLuck, setPotluck])
 }
 
 const onChange = (evt) => {
