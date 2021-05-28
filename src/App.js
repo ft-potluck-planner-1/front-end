@@ -8,7 +8,6 @@ import Profile from './components/Profile';
 import Organize from './components/Organize';
 import Guest from './components/Guest';
 
-
 function App() {
 
   const handleSignOut = () => {
