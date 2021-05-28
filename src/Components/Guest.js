@@ -2,30 +2,33 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
+import { guestResponse } from '../actions/index';
 
 
 const Guest = (props) => {
-    const { potluck, id } = props;
-
-    const [ response, setResponse ] = useState({
-        rsvp: '',
-        guest_id: id
+    const { guestPotluck, user_id } = props;
+    
+    const [ rsvp, setRsvp ] = useState({
+        response: '',
+        guest_id: user_id
     });
+
 
     const { push } = useHistory();
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        setResponse({
-            ...response,
+        setRsvp({
+            ...rsvp,
             [name]: value
         })
     }
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axiosWithAuth()
-            .put(`https://ft-potluck-planner-5.herokuapp.com/api/events/${potluck.event_id}/guests`, response)
+            .put(`https://ft-potluck-planner-5.herokuapp.com/api/events/${guestPotluck.event_id}/guests`, rsvp)
             .then(res => {
                 push('/profile')
             })
@@ -34,21 +37,22 @@ const Guest = (props) => {
             })
     }
 
+
     return(
         <div>
             <div className='guest-potluck-card'>
-            <p>{potluck.event_date}</p>
-            <p>{potluck.event_time}</p>
-            <p>{potluck.event_location}</p>
-            <p>{potluck.organizer}</p>
+            <p>{guestPotluck.event_date}</p>
+            <p>{guestPotluck.event_time}</p>
+            <p>{guestPotluck.event_location}</p>
+            <p>{guestPotluck.organizer}</p>
             <form onSubmit={handleSubmit}>
                 <p>Will you be attending the potluck?</p>
                 <label> Yes
                     <input 
                         type='radio' 
-                        name='rsvp' 
+                        name='response' 
                         value='yes'
-                        checked={response.rsvp === 'yes'}
+                        checked={rsvp.response === 'yes'}
                         onChange={onChange}
                         />
                 </label>
@@ -56,12 +60,13 @@ const Guest = (props) => {
                 <label> No
                     <input 
                         type='radio' 
-                        name='rsvp' 
+                        name='response' 
                         value='no'
-                        checked={response.rsvp === 'no'}
+                        checked={rsvp.response === 'no'}
                         onChange={onChange}
                         />
                 </label>
+
                 <button>Save RSVP</button>
             </form>
         </div>
@@ -72,9 +77,10 @@ const Guest = (props) => {
 
 const mapToStateProps = (state) => {
     return({
-        potluck: state.guestPotluck,
-        id: state.guest_id
-    })
+        guestPotluck: state.guestPotluck,
+        user_id: state.user_id,
+        userName: state.userName
+    });
 }
 
-export default connect(mapToStateProps)(Guest);
+export default connect(mapToStateProps, {guestResponse})(Guest);

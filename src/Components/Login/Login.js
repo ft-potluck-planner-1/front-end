@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import axios from 'axios';
 import schema from './formSchema';
 
 import { connect } from 'react-redux';
@@ -10,7 +10,6 @@ const initialFormValues = {
     username: "",
     password: "",
 };
-
 
 const Login = (props) => {
 
@@ -27,12 +26,12 @@ const Login = (props) => {
         };
         setUsername([...username, newUser]);
     };
+
     useEffect(() => {
         schema.isValid(formValues).then((valid) => {
             setSubmitDisabled(!valid);
         });
     }, [formValues]);
-
 
     const onChange = (e) => {
         setFormValues({
@@ -43,7 +42,7 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axiosWithAuth()
+        axios
             .post('https://ft-potluck-planner-5.herokuapp.com/api/auth/login', formValues)
             .then((res) => {
                 localStorage.setItem('token', res.data.token);
@@ -54,7 +53,6 @@ const Login = (props) => {
             .catch((err) => {
                 console.log("ERROR:", err.response);
             });
-
         submitHandler();
     };
 
@@ -86,17 +84,21 @@ const Login = (props) => {
 
                     <button disabled={submitDisabled}> Log in </button>
                 </form>
-
-                {formValues.username.length < 5 ||
+            
+                {/* {formValues.username.length < 5 ||
                     (formValues.password.length < 5 && (
                         <div>
-                            {/* <p> {formErrors.username} </p> <p> {formErrors.password} </p> */}
+                            <p> {formErrors.username} </p> <p> {formErrors.password} </p>
                         </div>
-                    ))}
+                    ))
+                }  */}
+                   
+                    
             </div>
         </div>
     );
 };
+
 
 export default connect(null, {getLoginResponse})(Login);
 

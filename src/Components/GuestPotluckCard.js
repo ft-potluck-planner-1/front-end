@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { editPotluck } from '../actions/index';
 
 const GuestPotluckCard = (props) => {
-    const { potluck } = props;
+    const { potluck, editPotluck } = props;
 
     const history = useHistory();
 
     const handleClick = () => {
-        history.push('/guest');
         editPotluck(potluck)
+        history.push('/guest');
     }
 
     return(
