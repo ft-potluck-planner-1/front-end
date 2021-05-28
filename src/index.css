@@ -20,8 +20,3 @@ body {
     padding: 4px 0;
     font-size: 0.8rem;
 }
-
-.links-container {
-    display: flex;
-    justify-content: space-between;
-}
