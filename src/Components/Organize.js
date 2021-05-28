@@ -1,6 +1,82 @@
 import React, { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
+import styled from 'styled-components';
+
+const Page = styled.div`
+    background-color: orange;
+    color: black;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+
+    h2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    h4 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .potluckSubmit {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: orangered;
+        padding: 10px;
+        border-radius: 5px;
+        width:40%;
+        margin: auto;
+    }
+
+
+    label {
+        padding: 5px;
+        display:flex;
+        justify-content: space-around;
+    }
+
+    button{
+        width: 50%;
+        margin: auto;
+        background-color: burlywood;
+    }
+
+    input {
+        background-color: burlywood;
+    }
+
+    @media (max-width: 500px) {
+
+        .loginForm {
+            width: 75%;
+
+}
+    } 
+
+    @media (max-width: 800px) {
+
+.loginForm {
+    width: 65%;
+
+}
+
+} 
+`;
+
 
 const initFormVal = {
     name: '',
@@ -12,28 +88,24 @@ const initFormVal = {
 
 
 const Organize = (props) => {
-const { values, submit, change, disabled } = props;
+const { push } = useHistory()
+const { disabled } = props;
 const [formVal, setFormVal] = useState(initFormVal)
 const [potLuck, setPotluck] = useState([])
 
-const submitPot = (data) => {
-    axios
-    .post(`https://ft-potluck-planner-5.herokuapp.com/api/events`, data)
-    .then(response => {
+const submitPot = () => {
+    axiosWithAuth()
+    .post(`https://ft-potluck-planner-5.herokuapp.com/api/events`, initFormVal)
+    .then((response) => {
         console.log(response)
-        setFormVal(response.data)
+        setPotluck([response.data, ...potLuck])
+        setFormVal(initFormVal)
+        push('/profile')
     })
     .catch(error => {
         console.log(error)
     })
-    // const newPotluck = {
-    //     name: formVal.name.trim(),
-    //     date: formVal.date.trim(),
-    //     time: formVal.time.trim(),
-    //     location: formVal.location.trim(),
-    //     food: formVal.food.trim()
-    // }
-    // setPotluck([...potLuck, setPotluck])
+  
 }
 
 const onChange = (evt) => {
@@ -42,8 +114,9 @@ const onChange = (evt) => {
 }
 
     return(
-        <form className='form container' onSubmit={submitPot}>
-            <div className='potluck submit'>
+        <Page>
+        <form className='formContainer' onSubmit={submitPot}>
+            <div className='potluckSubmit'>
                 <h2>Organize a Potluck</h2>
                 <button disabled={disabled}>submit</button>
             </div>
@@ -102,6 +175,7 @@ const onChange = (evt) => {
 
             </div>
         </form>
+        </Page>
     );
 };
 

@@ -2,9 +2,65 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import schema from './formSchema';
-
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {getLoginResponse} from '../../actions/index';
+
+const Page = styled.div`
+    background-color: orange;
+    color: white;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: PressStart2P;
+
+
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: orangered;
+        padding: 10px;
+        border-radius: 5px;
+        width:40%;
+        margin: auto;
+    }
+
+    label {
+        padding: 5px;
+        display:flex;
+        justify-content: center;
+    }
+
+    button{
+        width: 50%;
+        margin: auto;
+    }
+
+    input {
+        background-color: burlywood;
+    }
+
+    @media (max-width: 500px) {
+
+        .loginForm {
+            width: 75%;
+
+}
+    } 
+
+    @media (max-width: 800px) {
+
+.loginForm {
+    width: 65%;
+
+}
+
+} 
+`;
+
 
 const initialFormValues = {
     username: "",
@@ -64,7 +120,7 @@ const Login = (props) => {
     };
 
     return (
-        <div>
+        <Page>
             <div className="formContainer">
                 <form className="loginForm" onSubmit={onSubmit}>
                     <label className="name">
@@ -99,7 +155,7 @@ const Login = (props) => {
                         </div>
                     ))}
             </div>
-        </div>
+        </Page>
     );
 };
 
